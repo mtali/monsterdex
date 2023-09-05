@@ -9,4 +9,10 @@ plugins {
     alias(libs.plugins.ksp) apply false
 }
 
+subprojects {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+}
+
 true // Needed to make the Suppress annotation work for the plugins block
