@@ -2,8 +2,10 @@ import com.colisa.monsterdex.Configuration
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    id(libs.plugins.androidApplication.get().pluginId)
+    id(libs.plugins.kotlinAndroid.get().pluginId)
+    id(libs.plugins.kotlinKapt.get().pluginId)
+    id(libs.plugins.kotlinParcelize.get().pluginId)
 }
 
 android {
@@ -39,11 +41,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    kotlin {
+        sourceSets.configureEach {
+            kotlin.srcDir("$buildDir/generated/ksp/$name/kotlin/")
+        }
+    }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
