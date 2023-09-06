@@ -22,12 +22,33 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
+
 }
 
 dependencies {
+    // Compose
+    val composeBom = platform(libs.compose.bom)
+    implementation(composeBom)
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling)
+    implementation(libs.ui.tooling.preview)
+
+    // Material3
+    implementation(libs.material3)
+    implementation(libs.material3.window)
+
+    // Navigation
+    implementation(libs.hilt.navigation.compose)
 
     // Hilt (DI)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-
 }
