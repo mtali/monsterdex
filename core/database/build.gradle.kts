@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -30,6 +31,9 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":core:model"))
+
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
@@ -40,6 +44,6 @@ dependencies {
     kapt(libs.hilt.android.compiler)
 
     // Moshi (JSON Parsing)
-    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
 }

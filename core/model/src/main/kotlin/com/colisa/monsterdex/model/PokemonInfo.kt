@@ -11,7 +11,7 @@ data class PokemonInfo(
     @field:Json(name = "height") val height: Int,
     @field:Json(name = "weight") val weight: Int,
     @field:Json(name = "base_experience") val experience: Int,
-    @field:Json(name = "types") val types: List<String>,
+    @field:Json(name = "types") val types: List<TypeResponse>,
     val hp: Int = Random.nextInt(maxHp),
     val attack: Int = Random.nextInt(maxAttack),
     val defense: Int = Random.nextInt(maxDefense),
