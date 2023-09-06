@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.colisa.monsterdex.model"
+    namespace = "com.colisa.monsterdex.core.model"
     compileSdk = Configuration.compileSdk
 
     defaultConfig {

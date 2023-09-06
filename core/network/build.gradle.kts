@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = "com.colisa.monsterdex.network"
+    namespace = "com.colisa.monsterdex.core.network"
     compileSdk = Configuration.compileSdk
 
     defaultConfig {

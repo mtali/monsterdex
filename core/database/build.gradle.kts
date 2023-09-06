@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = "com.colisa.mosterdex.database"
+    namespace = "com.colisa.mosterdex.core.database"
     compileSdk = Configuration.compileSdk
 
     defaultConfig {
