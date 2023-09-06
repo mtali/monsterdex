@@ -3,44 +3,42 @@ package com.colisa.mosterdex.database.entity.mapper
 import com.colisa.monsterdex.model.PokemonInfo
 import com.colisa.mosterdex.database.entity.PokemonInfoEntity
 
-object PokemonInfoEntityMapper : EntityMapper<List<PokemonInfo>, List<PokemonInfoEntity>> {
-    override fun asEntity(domain: List<PokemonInfo>): List<PokemonInfoEntity> {
-        return domain.map { pokemonInfo ->
-            PokemonInfoEntity(
-                id = pokemonInfo.id,
-                name = pokemonInfo.name,
-                height = pokemonInfo.height,
-                weight = pokemonInfo.weight,
-                experience = pokemonInfo.experience,
-                types = pokemonInfo.types,
-                hp = pokemonInfo.hp,
-                attack = pokemonInfo.attack,
-                defense = pokemonInfo.defense,
-                speed = pokemonInfo.speed,
-                exp = pokemonInfo.exp
-            )
-        }
+object PokemonInfoEntityMapper : EntityMapper<PokemonInfo, PokemonInfoEntity> {
+    override fun asEntity(domain: PokemonInfo): PokemonInfoEntity {
+        return PokemonInfoEntity(
+            id = domain.id,
+            name = domain.name,
+            height = domain.height,
+            weight = domain.weight,
+            experience = domain.experience,
+            types = domain.types,
+            hp = domain.hp,
+            attack = domain.attack,
+            defense = domain.defense,
+            speed = domain.speed,
+            exp = domain.exp
+        )
     }
 
-    override fun asDomain(entity: List<PokemonInfoEntity>): List<PokemonInfo> {
-        return entity.map { pokemonInfoEntity ->
-            PokemonInfo(
-                id = pokemonInfoEntity.id,
-                name = pokemonInfoEntity.name,
-                height = pokemonInfoEntity.height,
-                weight = pokemonInfoEntity.weight,
-                experience = pokemonInfoEntity.experience,
-                types = pokemonInfoEntity.types,
-                hp = pokemonInfoEntity.hp,
-                attack = pokemonInfoEntity.attack,
-                defense = pokemonInfoEntity.defense,
-                speed = pokemonInfoEntity.speed,
-                exp = pokemonInfoEntity.exp
-            )
-        }
+    override fun asDomain(entity: PokemonInfoEntity): PokemonInfo {
+        return PokemonInfo(
+            id = entity.id,
+            name = entity.name,
+            height = entity.height,
+            weight = entity.weight,
+            experience = entity.experience,
+            types = entity.types,
+            hp = entity.hp,
+            attack = entity.attack,
+            defense = entity.defense,
+            speed = entity.speed,
+            exp = entity.exp
+        )
     }
+
 }
 
-fun List<PokemonInfo>.asEntity() = PokemonInfoEntityMapper.asEntity(this)
 
-fun List<PokemonInfoEntity>.asDomain() = PokemonInfoEntityMapper.asDomain(this)
+fun PokemonInfo.asEntity() = PokemonInfoEntityMapper.asEntity(this)
+
+fun PokemonInfoEntity.asDomain() = PokemonInfoEntityMapper.asDomain(this)
