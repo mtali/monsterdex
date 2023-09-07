@@ -4,9 +4,9 @@ import com.colisa.monsterdex.Configuration
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinKapt)
 }
 
 android {
@@ -28,6 +28,10 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
+
+    hilt {
+        enableAggregatingTask = true
     }
 }
 
