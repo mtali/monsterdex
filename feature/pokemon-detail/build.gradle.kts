@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-// Compose
+    // Compose
     val composeBom = platform(libs.compose.bom)
     implementation(composeBom)
     implementation(libs.ui)
