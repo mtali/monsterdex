@@ -1,11 +1,13 @@
 import com.colisa.monsterdex.Configuration
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id(libs.plugins.androidApplication.get().pluginId)
     id(libs.plugins.kotlinAndroid.get().pluginId)
-    id(libs.plugins.kotlinKapt.get().pluginId)
     id(libs.plugins.kotlinParcelize.get().pluginId)
+    id(libs.plugins.ksp.get().pluginId)
+    id(libs.plugins.hilt.get().pluginId)
+    id(libs.plugins.kotlinKapt.get().pluginId)
 }
 
 android {
@@ -54,11 +56,15 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    hilt {
+        enableAggregatingTask = true
+    }
 }
 
 dependencies {
-
     implementation(project(":core:design-system"))
+    implementation(project(":feature:pokemons"))
+    implementation(project(":feature:pokemon-detail"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -70,4 +76,11 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     debugImplementation(libs.ui.tooling)
+
+    // Hilt (DI)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    // Navigation
+    implementation(libs.navigation.compose)
 }
