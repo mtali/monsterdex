@@ -10,13 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.colisa.monsterdex.ui.theme.MonsterdexTheme
+import com.colisa.mosterdex.core.design_system.theme.MonsterdexTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MonsterdexTheme {
+            com.colisa.mosterdex.core.design_system.theme.MonsterdexTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -40,7 +40,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    MonsterdexTheme {
+    com.colisa.mosterdex.core.design_system.theme.MonsterdexTheme {
         Greeting("Android")
     }
 }
