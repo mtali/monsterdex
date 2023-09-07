@@ -12,7 +12,7 @@ fun NavController.navigateToPokemonDetail(navOptions: NavOptions? = null) {
     this.navigate(pokemonDetailRoute, navOptions)
 }
 
-fun NavGraphBuilder.pokemonsScreen() {
+fun NavGraphBuilder.pokemonDetailScreen() {
     composable(route = pokemonDetailRoute) {
         PokemonDetailRoute()
     }
