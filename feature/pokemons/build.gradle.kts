@@ -37,6 +37,10 @@ android {
 }
 
 dependencies {
+    // Modules
+    implementation(project(":core:model"))
+    implementation(project(":core:data"))
+
     // Compose
     val composeBom = platform(libs.compose.bom)
     implementation(composeBom)
