@@ -34,8 +34,8 @@ dependencies {
     implementation(project(":core:model"))
 
     // Room
-    implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.room.paging)
     ksp(libs.room.compiler)
 
     // Hilt (DI)

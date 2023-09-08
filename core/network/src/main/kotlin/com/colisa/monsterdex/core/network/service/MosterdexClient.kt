@@ -5,13 +5,10 @@ import javax.inject.Inject
 class MosterdexClient @Inject constructor(
     private val mosterdexService: MosterdexService
 ) {
-    suspend fun fetchPokemons(page: Int) =
-        mosterdexService.fetchPokemons(limit = PAGING_SIZE, offset = page * PAGING_SIZE)
+    suspend fun fetchPokemons(limit: Int, offset: Int) =
+        mosterdexService.fetchPokemons(limit = limit, offset = offset)
 
     suspend fun fetchPokemonInfo(name: String) =
         mosterdexService.fetchPokemonInfo(name)
 
-    companion object {
-        private const val PAGING_SIZE = 20
-    }
 }

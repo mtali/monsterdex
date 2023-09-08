@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.colisa.mosterdex.core.database.MosterdexDatabase
 import com.colisa.mosterdex.core.database.PokemonDao
 import com.colisa.mosterdex.core.database.PokemonInfoDao
+import com.colisa.mosterdex.core.database.RemoteKeyDao
 import com.colisa.mosterdex.core.database.TypeResponseConverter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -55,5 +56,11 @@ internal object DatabaseModule {
     @Singleton
     fun providePokemonInfoDao(database: MosterdexDatabase): PokemonInfoDao {
         return database.pokemonInfoDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteKeyDao(database: MosterdexDatabase): RemoteKeyDao {
+        return database.remoteKeyDao()
     }
 }
