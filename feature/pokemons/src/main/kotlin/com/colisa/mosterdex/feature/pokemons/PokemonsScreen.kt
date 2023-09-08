@@ -5,9 +5,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,28 +36,49 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import androidx.palette.graphics.Palette
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
+import com.colisa.monsterdex.core.model.Pokemon
 import kotlinx.coroutines.launch
 
 
 @Composable
 internal fun PokemonsRoute(viewModel: PokemonsViewModel = hiltViewModel()) {
-    PokemonsScreen()
+    val pokemonsPagingItems = viewModel.pokemons.collectAsLazyPagingItems()
+    PokemonsScreen(pokemonsPagingItems)
 }
 
 @Composable
-internal fun PokemonsScreen() {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        modifier = Modifier,
-        contentPadding = PaddingValues(6.dp),
-    ) {
-        items(100) { index ->
-            PokemonItemCard(position = index + 1)
+internal fun PokemonsScreen(
+    pokemonsPagingItems: LazyPagingItems<Pokemon>
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        val loadingState = pokemonsPagingItems.loadState.refresh
+        if (loadingState is LoadState.Loading) {
+            CircularProgressIndicator()
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier,
+                contentPadding = PaddingValues(6.dp),
+            ) {
+                items(
+                    count = pokemonsPagingItems.itemCount,
+                    key = pokemonsPagingItems.itemKey { it.name }
+                ) { index ->
+                    val pokemon = pokemonsPagingItems[index]
+                    if (pokemon != null) {
+                        PokemonItemCard(pokemon = pokemon)
+                    }
+                }
+            }
         }
     }
 }
@@ -62,7 +86,7 @@ internal fun PokemonsScreen() {
 @Composable
 private fun PokemonItemCard(
     modifier: Modifier = Modifier,
-    position: Int,
+    pokemon: Pokemon,
     onPokemonClick: () -> Unit = {}
 ) {
 
@@ -89,8 +113,7 @@ private fun PokemonItemCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            val url =
-                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${position}.png"
+            val url = pokemon.getImageUrl()
             val painter = rememberAsyncImagePainter(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(url)
@@ -110,7 +133,6 @@ private fun PokemonItemCard(
                         }
                     }
                 }
-
                 else -> Unit
             }
 
@@ -123,7 +145,7 @@ private fun PokemonItemCard(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Pokemon #${position}",
+                text = pokemon.name,
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.White,
                 modifier = Modifier.alpha(0.7f)
