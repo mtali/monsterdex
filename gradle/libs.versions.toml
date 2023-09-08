@@ -17,6 +17,7 @@ timber = '5.0.1'
 androidx-hilt = '1.0.0'
 compose-compiler = '1.5.3'
 navigation = '2.7.2'
+coil = "2.4.0"
 
 
 [libraries]
@@ -47,6 +48,9 @@ okhttp-boom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhtt
 okhttp = { module = "com.squareup.okhttp3:okhttp" }
 okhttp-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 
 
 [plugins]
