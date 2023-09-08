@@ -58,4 +58,6 @@ dependencies {
 
     // Coil
     implementation(libs.coil.kt.compose)
+
+    implementation(libs.palette.ktx)
 }
