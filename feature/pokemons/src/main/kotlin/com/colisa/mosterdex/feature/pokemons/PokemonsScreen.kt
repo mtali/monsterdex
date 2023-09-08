@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -18,7 +17,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,24 +58,26 @@ internal fun PokemonsRoute(viewModel: PokemonsViewModel = hiltViewModel()) {
 internal fun PokemonsScreen(
     pokemonsPagingItems: LazyPagingItems<Pokemon>
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        val loadingState = pokemonsPagingItems.loadState.refresh
-        if (loadingState is LoadState.Loading) {
-            CircularProgressIndicator()
-        } else {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier,
-                contentPadding = PaddingValues(6.dp),
-            ) {
-                items(
-                    count = pokemonsPagingItems.itemCount,
-                    key = pokemonsPagingItems.itemKey { it.name }
-                ) { index ->
-                    val pokemon = pokemonsPagingItems[index]
-                    if (pokemon != null) {
-                        PokemonItemCard(pokemon = pokemon)
-                    }
+    Column(modifier = Modifier.fillMaxSize()) {
+        val loading = pokemonsPagingItems.loadState.refresh is LoadState.Loading ||
+                pokemonsPagingItems.loadState.append is LoadState.Loading
+
+        if (loading) {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+        }
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier,
+            contentPadding = PaddingValues(6.dp),
+        ) {
+            items(
+                count = pokemonsPagingItems.itemCount,
+                key = pokemonsPagingItems.itemKey { it.name }
+            ) { index ->
+                val pokemon = pokemonsPagingItems[index]
+                if (pokemon != null) {
+                    PokemonItemCard(pokemon = pokemon)
                 }
             }
         }
@@ -133,6 +134,7 @@ private fun PokemonItemCard(
                         }
                     }
                 }
+
                 else -> Unit
             }
 
