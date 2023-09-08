@@ -27,7 +27,6 @@ class PokemonRemoteMediator(
         state: PagingState<Int, PokemonEntity>
     ): MediatorResult {
         return try {
-
             val offset = when (loadType) {
                 LoadType.REFRESH -> 0
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
