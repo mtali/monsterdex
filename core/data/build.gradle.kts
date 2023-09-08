@@ -38,4 +38,7 @@ dependencies {
     // Hilt (DI)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    // Paging
+    implementation(libs.paging.compose)
 }

@@ -45,4 +45,7 @@ dependencies {
     // Moshi (JSON Parsing)
     implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
+
+    // Paging
+    implementation(libs.paging.compose)
 }
