@@ -63,5 +63,9 @@ dependencies {
     // Coil
     implementation(libs.coil.kt.compose)
 
+    // Color picker
     implementation(libs.palette.ktx)
+
+    // Pagination
+    implementation(libs.paging.compose)
 }
