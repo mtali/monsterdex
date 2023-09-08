@@ -4,6 +4,7 @@ import com.colisa.monsterdex.core.network.interceptor.HttpRequestInterceptor
 import com.colisa.monsterdex.core.network.service.MosterdexClient
 import com.colisa.monsterdex.core.network.service.MosterdexService
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,11 +30,11 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient): Retrofit {
+    fun provideRetrofit(client: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .client(client)
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .build()
     }
