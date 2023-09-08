@@ -55,4 +55,7 @@ dependencies {
     // Hilt (DI)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    // Coil
+    implementation(libs.coil.kt.compose)
 }

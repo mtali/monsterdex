@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 
 
 @Composable
@@ -65,6 +66,12 @@ fun PokemonItemCard(
                     .padding(16.dp),
                 contentAlignment = Alignment.BottomStart,
             ) {
+
+                AsyncImage(
+                    model = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+                    contentDescription = null
+                )
+
                 Text(
                     text = pokemon,
                     style = MaterialTheme.typography.titleMedium,
