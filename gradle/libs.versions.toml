@@ -22,6 +22,7 @@ palette = "1.0.0"
 paging = "3.2.1"
 
 
+
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
@@ -55,7 +56,6 @@ coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "
 palette-ktx = { group = "androidx.palette", name = "palette-ktx", version.ref = "palette" }
 paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
-
 
 
 

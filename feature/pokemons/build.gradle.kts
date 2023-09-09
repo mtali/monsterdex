@@ -40,6 +40,7 @@ dependencies {
     // Modules
     implementation(project(":core:model"))
     implementation(project(":core:data"))
+    implementation(project(":core:design-system"))
 
     // Compose
     val composeBom = platform(libs.compose.bom)
@@ -62,9 +63,6 @@ dependencies {
 
     // Coil
     implementation(libs.coil.kt.compose)
-
-    // Color picker
-    implementation(libs.palette.ktx)
 
     // Pagination
     implementation(libs.paging.compose)

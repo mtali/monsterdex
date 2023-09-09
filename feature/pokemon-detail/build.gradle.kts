@@ -58,9 +58,4 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    // Coil
-    implementation(libs.coil.kt.compose)
-
-    // Color picker
-    implementation(libs.palette.ktx)
 }

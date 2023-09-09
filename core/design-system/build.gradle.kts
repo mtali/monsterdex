@@ -36,5 +36,15 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling)
     implementation(libs.ui.tooling.preview)
+
     implementation(libs.material3)
+    implementation(libs.material3.window)
+
+    // Color picker
+    implementation(libs.palette.ktx)
+
+    // Coil
+    implementation(libs.coil.kt.compose)
+
+    implementation(libs.core.ktx)
 }

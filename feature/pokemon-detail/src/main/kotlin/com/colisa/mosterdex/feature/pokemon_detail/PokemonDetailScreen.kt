@@ -1,7 +1,5 @@
 package com.colisa.mosterdex.feature.pokemon_detail
 
-import android.graphics.drawable.Drawable
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,17 +25,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.palette.graphics.Palette
-import coil.compose.AsyncImagePainter
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
-import coil.size.Size
+import com.colisa.mosterdex.core.design_system.component.NetworkImage
 import com.colisa.mosterdex.core.design_system.icon.MonsterdexIcons
-import kotlinx.coroutines.launch
 
 @Composable
 internal fun PokemonDetailRoute(viewModel: PokemonDetailViewModel = hiltViewModel()) {
@@ -78,48 +68,6 @@ internal fun PokemonDetailScreen(
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun NetworkImage(
-    url: String,
-    dominantColor: (Color) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val painter = rememberAsyncImagePainter(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(url)
-            .crossfade(true)
-            .allowHardware(false) // Palette needs to read the image's pixels
-            .size(Size.ORIGINAL) // Set the target size to load the image at.
-            .build()
-    )
-
-    when (val state = painter.state) {
-        is AsyncImagePainter.State.Success -> {
-            LaunchedEffect(Unit) {
-                launch {
-                    getDominantColor(state.result.drawable) { dominantColor(it) }
-                }
-            }
-        }
-
-        else -> Unit
-    }
-    Image(
-        painter = painter,
-        contentDescription = null,
-        modifier = modifier
-    )
-}
-
-// TODO: Extract this to be reusable
-private fun getDominantColor(drawable: Drawable, onDominant: (Color) -> Unit) {
-    Palette.Builder(drawable.toBitmap()).generate { palette ->
-        palette?.let {
-            palette.dominantSwatch?.rgb?.let { onDominant(Color(it)) }
         }
     }
 }
