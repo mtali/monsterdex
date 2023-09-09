@@ -26,17 +26,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.colisa.monsterdex.core.model.Pokemon
 import com.colisa.mosterdex.core.design_system.component.NetworkImage
 import com.colisa.mosterdex.core.design_system.icon.MonsterdexIcons
 
 @Composable
 internal fun PokemonDetailRoute(viewModel: PokemonDetailViewModel = hiltViewModel()) {
-    PokemonDetailScreen(onBackClick = {})
+
+    val pokemon by viewModel.pokemon.collectAsStateWithLifecycle()
+    PokemonDetailScreen(
+        pokemon = pokemon
+    ) {}
 }
 
 @Composable
 internal fun PokemonDetailScreen(
+    pokemon: Pokemon?,
     onBackClick: () -> Unit
 ) {
     val colorScheme = MaterialTheme.colorScheme
@@ -54,18 +62,20 @@ internal fun PokemonDetailScreen(
                     .fillMaxSize()
                     .background(headerBackground)
             ) {
-                Toolbar(onBackClick = onBackClick, index = 12)
+                Toolbar(onBackClick = onBackClick, index = pokemon?.getIndex())
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
                     contentAlignment = Alignment.Center
                 ) {
-                    NetworkImage(
-                        url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-                        dominantColor = { headerBackground = it },
-                        modifier = Modifier.size(190.dp)
-                    )
+                    if (pokemon != null) {
+                        NetworkImage(
+                            url = pokemon.getImageUrl(),
+                            dominantColor = { headerBackground = it },
+                            modifier = Modifier.size(190.dp)
+                        )
+                    }
                 }
             }
         }
@@ -76,7 +86,7 @@ internal fun PokemonDetailScreen(
 @Composable
 private fun Toolbar(
     modifier: Modifier = Modifier,
-    index: Int,
+    index: String?,
     onBackClick: () -> Unit
 ) {
     Row(
@@ -99,10 +109,12 @@ private fun Toolbar(
             color = Color.White
         )
         Spacer(modifier = Modifier.weight(1f))
+
         Text(
-            text = "#$index",
+            text = "#${index ?: 0}",
             style = MaterialTheme.typography.titleMedium,
-            color = Color.White
+            color = Color.White,
+            fontSize = 18.sp
         )
         Spacer(
             modifier = Modifier.width(16.dp)

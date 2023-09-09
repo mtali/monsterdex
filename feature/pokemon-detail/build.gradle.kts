@@ -37,6 +37,8 @@ android {
 
 dependencies {
     // Modules
+    implementation(project(":core:model"))
+    implementation(project(":core:data"))
     implementation(project(":core:design-system"))
 
     // Compose
@@ -57,5 +59,8 @@ dependencies {
     // Hilt (DI)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    // Lifecycle
+    implementation(libs.lifecycle.runtime.compose)
 
 }
