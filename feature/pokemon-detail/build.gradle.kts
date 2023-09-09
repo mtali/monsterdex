@@ -36,6 +36,9 @@ android {
 }
 
 dependencies {
+    // Modules
+    implementation(project(":core:design-system"))
+
     // Compose
     val composeBom = platform(libs.compose.bom)
     implementation(composeBom)
@@ -54,4 +57,10 @@ dependencies {
     // Hilt (DI)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    // Coil
+    implementation(libs.coil.kt.compose)
+
+    // Color picker
+    implementation(libs.palette.ktx)
 }

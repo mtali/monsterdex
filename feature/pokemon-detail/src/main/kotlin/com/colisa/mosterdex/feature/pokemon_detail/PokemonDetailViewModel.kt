@@ -1,6 +1,5 @@
 package com.colisa.mosterdex.feature.pokemon_detail
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.colisa.mosterdex.feature.pokemon_detail.navigation.PokemonsDetailArg
@@ -14,7 +13,4 @@ class PokemonDetailViewModel @Inject constructor(
 
     private val args = PokemonsDetailArg(savedStateHandle)
 
-    init {
-        Log.d("mtali", "Pokemon details: ${args.name}")
-    }
 }
