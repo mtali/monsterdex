@@ -49,14 +49,21 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-internal fun PokemonsRoute(viewModel: PokemonsViewModel = hiltViewModel()) {
+internal fun PokemonsRoute(
+    viewModel: PokemonsViewModel = hiltViewModel(),
+    onPokemonClick: (name: String) -> Unit
+) {
     val pokemonsPagingItems = viewModel.pokemons.collectAsLazyPagingItems()
-    PokemonsScreen(pokemonsPagingItems)
+    PokemonsScreen(
+        pokemonsPagingItems = pokemonsPagingItems,
+        onPokemonClick = onPokemonClick
+    )
 }
 
 @Composable
 internal fun PokemonsScreen(
-    pokemonsPagingItems: LazyPagingItems<Pokemon>
+    pokemonsPagingItems: LazyPagingItems<Pokemon>,
+    onPokemonClick: (name: String) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         val loading = pokemonsPagingItems.loadState.refresh is LoadState.Loading ||
@@ -77,7 +84,10 @@ internal fun PokemonsScreen(
             ) { index ->
                 val pokemon = pokemonsPagingItems[index]
                 if (pokemon != null) {
-                    PokemonItemCard(pokemon = pokemon)
+                    PokemonItemCard(
+                        pokemon = pokemon,
+                        onPokemonClick = onPokemonClick
+                    )
                 }
             }
         }
@@ -88,7 +98,7 @@ internal fun PokemonsScreen(
 private fun PokemonItemCard(
     modifier: Modifier = Modifier,
     pokemon: Pokemon,
-    onPokemonClick: () -> Unit = {}
+    onPokemonClick: (name: String) -> Unit
 ) {
 
     val colorScheme = MaterialTheme.colorScheme
@@ -99,7 +109,7 @@ private fun PokemonItemCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onPokemonClick() },
+            .clickable { onPokemonClick(pokemon.name) },
         elevation = CardDefaults.elevatedCardElevation(),
         shape = MaterialTheme.shapes.medium,
     ) {

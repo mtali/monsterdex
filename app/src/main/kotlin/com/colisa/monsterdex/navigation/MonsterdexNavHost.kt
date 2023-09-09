@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.colisa.mosterdex.feature.pokemon_detail.navigation.navigateToPokemonDetail
 import com.colisa.mosterdex.feature.pokemon_detail.navigation.pokemonDetailScreen
 import com.colisa.mosterdex.feature.pokemons.navigation.pokemonsRoute
 import com.colisa.mosterdex.feature.pokemons.navigation.pokemonsScreen
@@ -38,7 +39,9 @@ fun MonsterdexNavHost(
         modifier = modifier,
     ) {
 
-        pokemonsScreen()
+        pokemonsScreen(onPokemonClick = { name ->
+            navController.navigateToPokemonDetail(name)
+        })
 
         pokemonDetailScreen()
     }
