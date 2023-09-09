@@ -14,7 +14,9 @@ data class Pokemon(
     val url: String
 ) : Parcelable {
     fun getImageUrl(): String {
-        val index = url.split("/").dropLast(1).last()
+        val index = getIndex()
         return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$index.png"
     }
+
+    fun getIndex() = url.split("/").dropLast(1).last()
 }
