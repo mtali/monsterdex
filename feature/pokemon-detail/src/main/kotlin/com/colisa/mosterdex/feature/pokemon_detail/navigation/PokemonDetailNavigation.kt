@@ -16,13 +16,13 @@ fun NavController.navigateToPokemonDetail(name: String, navOptions: NavOptions? 
     this.navigate("pokemon_detail_route/${Uri.encode(name)}", navOptions)
 }
 
-fun NavGraphBuilder.pokemonDetailScreen() {
+fun NavGraphBuilder.pokemonDetailScreen(onBackClick: () -> Unit) {
     composable(
         route = pokemonDetailRoute,
         arguments = listOf(
             navArgument(POKEMON_NAME) { type = NavType.StringType }
         )
     ) {
-        PokemonDetailRoute()
+        PokemonDetailRoute(onBackClick = onBackClick)
     }
 }

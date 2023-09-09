@@ -43,6 +43,8 @@ fun MonsterdexNavHost(
             navController.navigateToPokemonDetail(name)
         })
 
-        pokemonDetailScreen()
+        pokemonDetailScreen(
+            onBackClick = { navController.popBackStack() }
+        )
     }
 }

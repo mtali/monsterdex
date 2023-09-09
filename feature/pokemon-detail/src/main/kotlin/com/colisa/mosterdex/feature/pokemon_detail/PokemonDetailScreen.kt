@@ -34,12 +34,16 @@ import com.colisa.mosterdex.core.design_system.component.NetworkImage
 import com.colisa.mosterdex.core.design_system.icon.MonsterdexIcons
 
 @Composable
-internal fun PokemonDetailRoute(viewModel: PokemonDetailViewModel = hiltViewModel()) {
+internal fun PokemonDetailRoute(
+    viewModel: PokemonDetailViewModel = hiltViewModel(),
+    onBackClick: () -> Unit
+) {
 
     val pokemon by viewModel.pokemon.collectAsStateWithLifecycle()
     PokemonDetailScreen(
-        pokemon = pokemon
-    ) {}
+        pokemon = pokemon,
+        onBackClick = onBackClick
+    )
 }
 
 @Composable
