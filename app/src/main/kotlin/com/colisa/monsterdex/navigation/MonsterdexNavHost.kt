@@ -19,7 +19,7 @@ package com.colisa.monsterdex.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
+import com.colisa.monsterdex.ui.MosterdexAppState
 import com.colisa.mosterdex.feature.pokemon_detail.navigation.navigateToPokemonDetail
 import com.colisa.mosterdex.feature.pokemon_detail.navigation.pokemonDetailScreen
 import com.colisa.mosterdex.feature.pokemons.navigation.pokemonsRoute
@@ -29,9 +29,10 @@ import com.colisa.mosterdex.feature.pokemons.navigation.pokemonsScreen
 @Composable
 fun MonsterdexNavHost(
     modifier: Modifier = Modifier,
+    appState: MosterdexAppState,
     startDestination: String = pokemonsRoute
 ) {
-    val navController = rememberNavController()
+    val navController = appState.navController
 
     NavHost(
         navController = navController,
@@ -44,7 +45,7 @@ fun MonsterdexNavHost(
         })
 
         pokemonDetailScreen(
-            onBackClick = { navController.popBackStack() }
+            onBackClick = { appState.navigateBack() }
         )
     }
 }

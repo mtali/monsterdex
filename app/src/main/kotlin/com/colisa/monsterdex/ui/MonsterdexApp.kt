@@ -23,7 +23,9 @@ import com.colisa.mosterdex.core.design_system.theme.GradientColors
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MonsterdexApp() {
+fun MonsterdexApp(
+    appState: MosterdexAppState
+) {
     MonsterdexBackground {
         MonsterdexGradientBackground(
             gradientColors = GradientColors()
@@ -45,7 +47,7 @@ fun MonsterdexApp() {
                             ),
                         )
                 ) {
-                    MonsterdexNavHost()
+                    MonsterdexNavHost(appState = appState)
                 }
             }
         }
