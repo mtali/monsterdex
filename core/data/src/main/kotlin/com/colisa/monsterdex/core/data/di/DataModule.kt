@@ -8,6 +8,8 @@ import com.colisa.monsterdex.core.data.repository.DetailRepository
 import com.colisa.monsterdex.core.data.repository.DetailRepositoryImpl
 import com.colisa.monsterdex.core.data.repository.MainRepository
 import com.colisa.monsterdex.core.data.repository.MainRepositoryImpl
+import com.colisa.monsterdex.core.data.utils.ConnectivityManagerNetworkMonitor
+import com.colisa.monsterdex.core.data.utils.NetworkMonitor
 import com.colisa.monsterdex.core.network.service.MosterdexClient
 import com.colisa.mosterdex.core.database.PokemonDao
 import com.colisa.mosterdex.core.database.RemoteKeyDao
@@ -29,6 +31,9 @@ interface DataModule {
 
     @Binds
     fun bindDetailRepository(detailRepository: DetailRepositoryImpl): DetailRepository
+
+    @Binds
+    fun bindsNetworkMonitor(networkMonitor: ConnectivityManagerNetworkMonitor): NetworkMonitor
 
     companion object {
         @OptIn(ExperimentalPagingApi::class)
