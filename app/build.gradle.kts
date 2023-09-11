@@ -84,4 +84,7 @@ dependencies {
 
     // Navigation
     implementation(libs.navigation.compose)
+
+    // Lifecycle
+    implementation(libs.lifecycle.runtime.compose)
 }
