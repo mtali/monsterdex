@@ -8,7 +8,7 @@ interface DetailRepository {
     @WorkerThread
     fun fetchPokemonInfo(
         name: String,
-        onComplete: () -> Unit,
-        onError: (String?) -> Unit
+        onComplete: () -> Unit = {},
+        onError: (String?) -> Unit = {}
     ): Flow<PokemonInfo>
 }

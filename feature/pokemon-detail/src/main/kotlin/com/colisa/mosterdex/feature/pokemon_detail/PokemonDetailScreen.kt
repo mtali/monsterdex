@@ -51,8 +51,10 @@ internal fun PokemonDetailRoute(
 ) {
 
     val pokemon by viewModel.pokemon.collectAsStateWithLifecycle()
+    val pokemonInfo by viewModel.pokemonInfo.collectAsStateWithLifecycle()
     PokemonDetailScreen(
         pokemon = pokemon,
+        pokemonInfo = pokemonInfo,
         onBackClick = onBackClick
     )
 }
@@ -60,29 +62,22 @@ internal fun PokemonDetailRoute(
 @Composable
 internal fun PokemonDetailScreen(
     pokemon: Pokemon?,
+    pokemonInfo: PokemonInfo?,
     onBackClick: () -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         header(pokemon = pokemon, onBackClick = onBackClick)
         spacer(height = 8.dp)
         pokemonName(name = pokemon?.name)
-        pokemonType(types = listOf("grass", "poison"))
-        spacer(height = 10.dp)
-        pokemonInfo(
-            info = PokemonInfo(
-                id = 23,
-                name = "gilato",
-                weight = 100,
-                height = 200,
-                exp = 250,
-                experience = 300,
-                types = emptyList(),
-                hp = 100,
-                attack = 200,
-                defense = 150,
-                speed = 300
+
+        pokemonInfo?.let {
+            pokemonType(types = pokemonInfo.types.map { it.type.name })
+            spacer(height = 10.dp)
+            pokemonInfo(
+                info = pokemonInfo
             )
-        )
+        }
+
     }
 }
 

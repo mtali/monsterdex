@@ -3,6 +3,7 @@ package com.colisa.mosterdex.feature.pokemon_detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.colisa.monsterdex.core.data.repository.DetailRepository
 import com.colisa.monsterdex.core.data.repository.MainRepository
 import com.colisa.mosterdex.feature.pokemon_detail.navigation.POKEMON_NAME
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,10 +18,15 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 class PokemonDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val mainRepository: MainRepository
+    private val mainRepository: MainRepository,
+    private val detailRepository: DetailRepository
 ) : ViewModel() {
 
-    val pokemon = savedStateHandle.getStateFlow<String?>(key = POKEMON_NAME, initialValue = null)
+    private val pokemonName =
+        savedStateHandle.getStateFlow<String?>(key = POKEMON_NAME, initialValue = null)
+
+
+    val pokemon = pokemonName
         .flatMapLatest { name ->
             if (name == null) {
                 flowOf(null)
@@ -33,5 +39,20 @@ class PokemonDetailViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = null,
         )
+
+    val pokemonInfo = pokemonName
+        .flatMapLatest { name ->
+            if (name == null) {
+                flowOf(null)
+            } else {
+                detailRepository.fetchPokemonInfo(name = name)
+            }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = null,
+        )
+
 
 }
