@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -51,10 +53,16 @@ internal fun PokemonDetailScreen(
     pokemon: Pokemon?,
     onBackClick: () -> Unit
 ) {
-    val colorScheme = MaterialTheme.colorScheme
-    var headerBackground by remember { mutableStateOf(colorScheme.primary) }
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        header(pokemon = pokemon, onBackClick = onBackClick)
+    }
+}
 
-    Column(modifier = Modifier.fillMaxSize()) {
+
+private fun LazyListScope.header(pokemon: Pokemon?, onBackClick: () -> Unit) {
+    item {
+        val colorScheme = MaterialTheme.colorScheme
+        var headerBackground by remember { mutableStateOf(colorScheme.primary) }
         Card(
             modifier = Modifier
                 .fillMaxWidth()
