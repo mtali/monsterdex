@@ -1,6 +1,7 @@
 package com.colisa.mosterdex.feature.pokemon_detail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,13 +30,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.colisa.monsterdex.core.model.Pokemon
+import com.colisa.monsterdex.core.model.PokemonInfo
+import com.colisa.mosterdex.core.design_system.component.LinearProgressWithTextIndicator
 import com.colisa.mosterdex.core.design_system.component.NetworkImage
+import com.colisa.mosterdex.core.design_system.component.spacer
 import com.colisa.mosterdex.core.design_system.icon.MonsterdexIcons
+import com.colisa.mosterdex.feature.pokemon_detail.PokemonTypeUtils.getTypeColor
 
 @Composable
 internal fun PokemonDetailRoute(
@@ -55,6 +64,162 @@ internal fun PokemonDetailScreen(
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         header(pokemon = pokemon, onBackClick = onBackClick)
+        spacer(height = 8.dp)
+        pokemonName(name = pokemon?.name)
+        pokemonType(types = listOf("grass", "poison"))
+        spacer(height = 10.dp)
+        pokemonInfo(
+            info = PokemonInfo(
+                id = 23,
+                name = "gilato",
+                weight = 100,
+                height = 200,
+                exp = 250,
+                experience = 300,
+                types = emptyList(),
+                hp = 100,
+                attack = 200,
+                defense = 150,
+                speed = 300
+            )
+        )
+    }
+}
+
+private fun LazyListScope.pokemonType(types: List<String>) {
+    item {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            types.forEach { type ->
+                AssistChip(
+                    onClick = { },
+                    label = { Text(text = type, modifier = Modifier.padding(horizontal = 16.dp)) },
+                    border = null,
+                    shape = RoundedCornerShape(percent = 50),
+                    colors = AssistChipDefaults.assistChipColors(
+                        containerColor = getTypeColor(type),
+                        labelColor = Color.White
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun TitleValue(value: String, title: String) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = value, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text(text = title)
+    }
+}
+
+@Composable
+private fun WeightHeight(weight: String, height: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        TitleValue(value = weight, title = "Weight")
+        TitleValue(value = height, title = "Height")
+    }
+}
+
+private fun LazyListScope.pokemonInfo(info: PokemonInfo) {
+    item {
+        WeightHeight(weight = info.getWeightString(), height = info.getHeightString())
+        Spacer(modifier = Modifier.height(10.dp))
+        BaseStats(info = info)
+    }
+}
+
+@Composable
+fun BaseStats(info: PokemonInfo) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+        Text(
+            text = "Base Stats",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            fontSize = 24.sp
+        )
+        Spacer(modifier = Modifier.height(6.dp))
+        ProgressStats(
+            title = "HP",
+            current = info.hp,
+            max = PokemonInfo.maxHp,
+            text = info.getHpString(),
+            progressColor = Color(0xFFD53A47)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ProgressStats(
+            title = "ATK",
+            current = info.attack,
+            max = PokemonInfo.maxAttack,
+            text = info.getAttackString(),
+            progressColor = Color(0xFFFFA726)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ProgressStats(
+            title = "DEF",
+            current = info.defense,
+            max = PokemonInfo.maxDefense,
+            text = info.getDefenseString(),
+            progressColor = Color(0xFF0091EA)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ProgressStats(
+            title = "SPD",
+            current = info.speed,
+            max = PokemonInfo.maxSpeed,
+            text = info.getSpeedString(),
+            progressColor = Color(0xFF90B1C5)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ProgressStats(
+            title = "EXP",
+            current = info.exp,
+            max = PokemonInfo.maxExp,
+            text = info.getExpString(),
+            progressColor = Color(0xFF388E3C)
+        )
+    }
+}
+
+@Composable
+private fun ProgressStats(
+    modifier: Modifier = Modifier,
+    title: String,
+    current: Int,
+    max: Int,
+    text: String,
+    progressColor: Color
+) {
+    Row(modifier.fillMaxWidth()) {
+        Row(Modifier.weight(1f)) {
+            Text(text = title)
+        }
+        LinearProgressWithTextIndicator(
+            modifier = Modifier.weight(7f),
+            progress = current.toFloat() / max.toFloat(),
+            text = text,
+            progressColor = progressColor
+        )
+    }
+}
+
+
+private fun LazyListScope.pokemonName(name: String?) {
+    item {
+        name?.let {
+            Text(
+                text = name,
+                fontSize = 36.sp,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
