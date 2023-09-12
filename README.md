@@ -12,7 +12,14 @@ Mosterdex exemplifies modern Android development with Hilt, Coroutines, Flow, Ro
 <img src="/previews/landing.png"/>
 </p>
 
-<img src="/previews/demo.gif" align="right" width="150" alt="demo"/>
+## Demo
+
+Monsterdex has two screens:
+
+- List of Pokémon fetched from an API and stored in a Room database using paging.
+- Detailed information about individual Pokémon.
+
+<img src="/previews/demo.gif" align="center" width="300" alt="demo"/>
 
 ## Tech Stack & Open-Source Libraries
 
