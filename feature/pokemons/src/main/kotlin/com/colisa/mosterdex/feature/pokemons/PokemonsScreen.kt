@@ -1,5 +1,6 @@
 package com.colisa.mosterdex.feature.pokemons
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -59,8 +60,8 @@ internal fun PokemonsScreen(
         val loading = pokemonsPagingItems.loadState.refresh is LoadState.Loading ||
                 pokemonsPagingItems.loadState.append is LoadState.Loading
 
-        if (loading) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+        AnimatedVisibility(visible = loading) {
+            LinearProgressIndicator(Modifier.fillMaxWidth())
         }
 
         LazyVerticalGrid(
