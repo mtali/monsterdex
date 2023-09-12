@@ -57,4 +57,30 @@ Mosterdex exemplifies modern Android development with Hilt, Coroutines, Flow, Ro
 **Monsterdex** is based on the MVVM architecture and the Repository pattern, which follows
 the [Google's official architecture guidance](https://developer.android.com/topic/architecture).
 
+# Modularization
+
+The **Monsterdex** app has been fully modularized
+
+<p align="center">
+<img src="/figure/modularization.png"/>
+</p>
+
+## Types of modules in Now in Android
+
+**Top tip**: A module graph (shown above) can be useful during modularization planning for
+visualizing dependencies between modules.
+
+The Monsterdex app contains the following types of modules:
+
+* `app:` module - Contains app-level classes and navigation control. Depends on all feature and
+  required core modules.
+* `feature:` module - Specific to single responsibilities in the app. Reusable across different
+  apps. Maintain isolation, keeping classes within the module if only used there.
+* `core:` module - Houses common code and shared dependencies. Can be used by multiple modules. Do
+  not depend on feature or app modules.
+
+# License
+
+**Now in Android** is distributed under the terms of the Apache License (Version 2.0). See the
+[license](LICENSE) for more information.
 
