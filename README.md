@@ -65,6 +65,8 @@ The **Monsterdex** app has been fully modularized
 <img src="/figure/modularization.png"/>
 </p>
 
+<img src="/previews/demo.gif" align="right" width="300" alt="demo"/>
+
 ## Types of modules in Now in Android
 
 **Top tip**: A module graph (shown above) can be useful during modularization planning for
