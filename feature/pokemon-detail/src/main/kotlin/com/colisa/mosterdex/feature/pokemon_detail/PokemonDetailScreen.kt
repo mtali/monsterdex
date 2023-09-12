@@ -1,5 +1,7 @@
 package com.colisa.mosterdex.feature.pokemon_detail
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -107,17 +109,19 @@ private fun LazyListScope.pokemonType(types: List<String>) {
 }
 
 @Composable
-private fun TitleValue(value: String, title: String) {
+private fun TitleValue(value: String?, title: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = value, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        AnimatedVisibility(visible = value != null) {
+            Text(text = value ?: "", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        }
         Text(text = title)
     }
 }
 
 @Composable
-private fun WeightHeight(weight: String, height: String) {
+private fun WeightHeight(modifier: Modifier = Modifier, weight: String?, height: String?) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         TitleValue(value = weight, title = "Weight")
@@ -128,8 +132,9 @@ private fun WeightHeight(weight: String, height: String) {
 private fun LazyListScope.pokemonInfo(info: PokemonInfo?) {
     item {
         WeightHeight(
-            weight = info?.getWeightString() ?: "",
-            height = info?.getHeightString() ?: ""
+            modifier = Modifier.animateContentSize(),
+            weight = info?.getWeightString(),
+            height = info?.getHeightString()
         )
         Spacer(modifier = Modifier.height(16.dp))
         BaseStats(info = info)
@@ -138,7 +143,11 @@ private fun LazyListScope.pokemonInfo(info: PokemonInfo?) {
 
 @Composable
 fun BaseStats(info: PokemonInfo?) {
-    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .animateContentSize()
+    ) {
         Text(
             text = "Base Stats",
             modifier = Modifier.fillMaxWidth(),
