@@ -22,6 +22,7 @@ import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -58,12 +59,14 @@ internal fun PokemonDetailRoute(
     val pokemon by viewModel.pokemon.collectAsStateWithLifecycle()
     val pokemonInfo by viewModel.pokemonInfo.collectAsStateWithLifecycle()
     val message by viewModel.message.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     context.ShowToast(message = message, clear = { viewModel.clearMessage() })
 
     PokemonDetailScreen(
         pokemon = pokemon,
         pokemonInfo = pokemonInfo,
+        isLoading = isLoading,
         onBackClick = onBackClick
     )
 }
@@ -72,17 +75,25 @@ internal fun PokemonDetailRoute(
 internal fun PokemonDetailScreen(
     pokemon: Pokemon?,
     pokemonInfo: PokemonInfo?,
+    isLoading: Boolean,
     onBackClick: () -> Unit
 ) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        header(pokemon = pokemon, onBackClick = onBackClick)
-        spacer(height = 8.dp)
-        pokemonName(name = pokemon?.name)
+    Column(modifier = Modifier.fillMaxSize()) {
+        AnimatedVisibility(visible = isLoading) {
+            LinearProgressIndicator(Modifier.fillMaxWidth())
+        }
 
-        pokemonType(types = pokemonInfo?.types?.map { it.type.name } ?: emptyList())
-        spacer(height = 10.dp)
-        pokemonInfo(info = pokemonInfo)
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            header(pokemon = pokemon, onBackClick = onBackClick)
+            spacer(height = 8.dp)
+            pokemonName(name = pokemon?.name)
+
+            pokemonType(types = pokemonInfo?.types?.map { it.type.name } ?: emptyList())
+            spacer(height = 10.dp)
+            pokemonInfo(info = pokemonInfo)
+        }
     }
+
 }
 
 

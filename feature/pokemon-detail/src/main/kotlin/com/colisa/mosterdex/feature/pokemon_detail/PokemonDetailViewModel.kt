@@ -30,6 +30,7 @@ class PokemonDetailViewModel @Inject constructor(
         savedStateHandle.getStateFlow<String?>(key = POKEMON_NAME, initialValue = null)
 
     val message = MutableStateFlow<ToastMessage?>(null)
+    val isLoading = MutableStateFlow(true)
 
     val pokemon = pokemonName
         .flatMapLatest { name ->
@@ -53,8 +54,10 @@ class PokemonDetailViewModel @Inject constructor(
                 detailRepository.fetchPokemonInfo(
                     name = name,
                     onError = { error ->
+                        isLoading.update { false }
                         error?.let { message.update { newToast(error) } }
-                    }
+                    },
+                    onComplete = { isLoading.update { false } }
                 )
             }
         }
