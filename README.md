@@ -9,5 +9,5 @@ Mosterdex exemplifies modern Android development with Hilt, Coroutines, Flow, Ro
 </br>
 
 <p align="center">
-<img src="/previews/langing.png"/>
+<img src="/previews/landing.png"/>
 </p>
