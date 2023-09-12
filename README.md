@@ -19,8 +19,8 @@ Mosterdex exemplifies modern Android development with Hilt, Coroutines, Flow, Ro
   and [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/)
   for asynchronous programming.
 - Jetpack
-  -[Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle): Observe Android
-  lifecycles and handle UI states upon lifecycle changes.
+  - [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle): Observe Android
+    lifecycles and handle UI states upon lifecycle changes.
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel): Manages
     UI-related data holder and is lifecycle aware, allowing data to survive configuration changes
     such
@@ -81,6 +81,6 @@ The Monsterdex app contains the following types of modules:
 
 # License
 
-**Now in Android** is distributed under the terms of the Apache License (Version 2.0). See the
+**Monsterdex** is distributed under the terms of the Apache License (Version 2.0). See the
 [license](LICENSE) for more information.
 
