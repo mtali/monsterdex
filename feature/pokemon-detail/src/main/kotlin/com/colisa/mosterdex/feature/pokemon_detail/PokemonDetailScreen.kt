@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -40,6 +41,7 @@ import com.colisa.monsterdex.core.model.Pokemon
 import com.colisa.monsterdex.core.model.PokemonInfo
 import com.colisa.mosterdex.core.design_system.component.LinearProgressWithTextIndicator
 import com.colisa.mosterdex.core.design_system.component.NetworkImage
+import com.colisa.mosterdex.core.design_system.component.ShowToast
 import com.colisa.mosterdex.core.design_system.component.spacer
 import com.colisa.mosterdex.core.design_system.icon.MonsterdexIcons
 import com.colisa.mosterdex.feature.pokemon_detail.PokemonTypeUtils.getTypeColor
@@ -50,8 +52,13 @@ internal fun PokemonDetailRoute(
     onBackClick: () -> Unit
 ) {
 
+    val context = LocalContext.current
     val pokemon by viewModel.pokemon.collectAsStateWithLifecycle()
     val pokemonInfo by viewModel.pokemonInfo.collectAsStateWithLifecycle()
+    val message by viewModel.message.collectAsStateWithLifecycle()
+
+    context.ShowToast(message = message, clear = { viewModel.clearMessage() })
+
     PokemonDetailScreen(
         pokemon = pokemon,
         pokemonInfo = pokemonInfo,

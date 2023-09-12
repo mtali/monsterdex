@@ -10,9 +10,8 @@ import com.colisa.mosterdex.core.database.PokemonInfoDao
 import com.colisa.mosterdex.core.database.entity.mapper.asDomain
 import com.colisa.mosterdex.core.database.entity.mapper.asEntity
 import com.skydoves.sandwich.map
-import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
-import com.skydoves.sandwich.onFailure
+import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -44,8 +43,8 @@ class DetailRepositoryImpl @Inject constructor(
                         onError("[Code: $code]: $message")
                     }
                 }
-                .onFailure {
-                    onError(message())
+                .onException {
+                    onError(message)
                 }
         } else {
             emit(pokemonInfo.asDomain())

@@ -5,13 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.colisa.monsterdex.core.data.repository.DetailRepository
 import com.colisa.monsterdex.core.data.repository.MainRepository
+import com.colisa.mosterdex.core.design_system.component.ToastMessage
+import com.colisa.mosterdex.core.design_system.component.newToast
 import com.colisa.mosterdex.feature.pokemon_detail.navigation.POKEMON_NAME
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +29,7 @@ class PokemonDetailViewModel @Inject constructor(
     private val pokemonName =
         savedStateHandle.getStateFlow<String?>(key = POKEMON_NAME, initialValue = null)
 
+    val message = MutableStateFlow<ToastMessage?>(null)
 
     val pokemon = pokemonName
         .flatMapLatest { name ->
@@ -45,7 +50,12 @@ class PokemonDetailViewModel @Inject constructor(
             if (name == null) {
                 flowOf(null)
             } else {
-                detailRepository.fetchPokemonInfo(name = name)
+                detailRepository.fetchPokemonInfo(
+                    name = name,
+                    onError = { error ->
+                        error?.let { message.update { newToast(error) } }
+                    }
+                )
             }
         }
         .stateIn(
@@ -54,5 +64,6 @@ class PokemonDetailViewModel @Inject constructor(
             initialValue = null,
         )
 
+    fun clearMessage() = message.update { null }
 
 }
