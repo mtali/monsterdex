@@ -77,16 +77,12 @@ internal fun PokemonDetailScreen(
         spacer(height = 8.dp)
         pokemonName(name = pokemon?.name)
 
-        pokemonInfo?.let {
-            pokemonType(types = pokemonInfo.types.map { it.type.name })
-            spacer(height = 10.dp)
-            pokemonInfo(
-                info = pokemonInfo
-            )
-        }
-
+        pokemonType(types = pokemonInfo?.types?.map { it.type.name } ?: emptyList())
+        spacer(height = 10.dp)
+        pokemonInfo(info = pokemonInfo)
     }
 }
+
 
 private fun LazyListScope.pokemonType(types: List<String>) {
     item {
@@ -129,16 +125,19 @@ private fun WeightHeight(weight: String, height: String) {
     }
 }
 
-private fun LazyListScope.pokemonInfo(info: PokemonInfo) {
+private fun LazyListScope.pokemonInfo(info: PokemonInfo?) {
     item {
-        WeightHeight(weight = info.getWeightString(), height = info.getHeightString())
-        Spacer(modifier = Modifier.height(10.dp))
+        WeightHeight(
+            weight = info?.getWeightString() ?: "",
+            height = info?.getHeightString() ?: ""
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         BaseStats(info = info)
     }
 }
 
 @Composable
-fun BaseStats(info: PokemonInfo) {
+fun BaseStats(info: PokemonInfo?) {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Text(
             text = "Base Stats",
@@ -149,41 +148,41 @@ fun BaseStats(info: PokemonInfo) {
         Spacer(modifier = Modifier.height(6.dp))
         ProgressStats(
             title = "HP",
-            current = info.hp,
+            current = info?.hp,
             max = PokemonInfo.maxHp,
-            text = info.getHpString(),
+            text = info?.getHpString(),
             progressColor = Color(0xFFD53A47)
         )
         Spacer(modifier = Modifier.height(8.dp))
         ProgressStats(
             title = "ATK",
-            current = info.attack,
+            current = info?.attack,
             max = PokemonInfo.maxAttack,
-            text = info.getAttackString(),
+            text = info?.getAttackString(),
             progressColor = Color(0xFFFFA726)
         )
         Spacer(modifier = Modifier.height(8.dp))
         ProgressStats(
             title = "DEF",
-            current = info.defense,
+            current = info?.defense,
             max = PokemonInfo.maxDefense,
-            text = info.getDefenseString(),
+            text = info?.getDefenseString(),
             progressColor = Color(0xFF0091EA)
         )
         Spacer(modifier = Modifier.height(8.dp))
         ProgressStats(
             title = "SPD",
-            current = info.speed,
+            current = info?.speed,
             max = PokemonInfo.maxSpeed,
-            text = info.getSpeedString(),
+            text = info?.getSpeedString(),
             progressColor = Color(0xFF90B1C5)
         )
         Spacer(modifier = Modifier.height(8.dp))
         ProgressStats(
             title = "EXP",
-            current = info.exp,
+            current = info?.exp,
             max = PokemonInfo.maxExp,
-            text = info.getExpString(),
+            text = info?.getExpString(),
             progressColor = Color(0xFF388E3C)
         )
     }
@@ -193,9 +192,9 @@ fun BaseStats(info: PokemonInfo) {
 private fun ProgressStats(
     modifier: Modifier = Modifier,
     title: String,
-    current: Int,
+    current: Int?,
     max: Int,
-    text: String,
+    text: String?,
     progressColor: Color
 ) {
     Row(modifier.fillMaxWidth()) {
@@ -204,8 +203,8 @@ private fun ProgressStats(
         }
         LinearProgressWithTextIndicator(
             modifier = Modifier.weight(7f),
-            progress = current.toFloat() / max.toFloat(),
-            text = text,
+            progress = (current?.toFloat() ?: 0f) / max.toFloat(),
+            text = text ?: "",
             progressColor = progressColor
         )
     }
