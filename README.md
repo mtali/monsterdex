@@ -12,7 +12,10 @@ Mosterdex exemplifies modern Android development with Hilt, Coroutines, Flow, Ro
 <img src="/previews/landing.png"/>
 </p>
 
+<img src="/previews/demo.gif" align="right" width="150" alt="demo"/>
+
 ## Tech Stack & Open-Source Libraries
+
 - Minimum SDK level: 24
 - Developed
   with [Kotlin](https://kotlinlang.org/), [Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
@@ -64,8 +67,6 @@ The **Monsterdex** app has been fully modularized
 <p align="center">
 <img src="/figure/modularization.png"/>
 </p>
-
-<img src="/previews/demo.gif" align="right" width="300" alt="demo"/>
 
 ## Types of modules in Now in Android
 
