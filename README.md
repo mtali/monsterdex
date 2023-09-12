@@ -18,8 +18,10 @@ Monsterdex has two screens:
 
 - List of Pokémon fetched from an API and stored in a Room database using paging.
 - Detailed information about individual Pokémon.
+<p align="center">
+<img src="/previews/demo.gif" width="300" alt="demo"/>
+</p>
 
-<img src="/previews/demo.gif" align="center" width="300" alt="demo"/>
 
 ## Tech Stack & Open-Source Libraries
 
