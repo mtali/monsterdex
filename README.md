@@ -91,6 +91,11 @@ The Monsterdex app contains the following types of modules:
 * `core:` module - Houses common code and shared dependencies. Can be used by multiple modules. Do
   not depend on feature or app modules.
 
+## Inspiration
+
+This project draws inspiration from [Pokedex](https://github.com/skydoves/Pokedex) created
+by [skydoves](https://twitter.com/github_skydoves).
+
 # License
 
 **Monsterdex** is distributed under the terms of the Apache License (Version 2.0). See the
