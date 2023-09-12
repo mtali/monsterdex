@@ -91,6 +91,14 @@ The Monsterdex app contains the following types of modules:
 * `core:` module - Houses common code and shared dependencies. Can be used by multiple modules. Do
   not depend on feature or app modules.
 
+## Open API
+
+<img src="https://user-images.githubusercontent.com/24237865/83422649-d1b1d980-a464-11ea-8c91-a24fdf89cd6b.png" align="right" width="21%"/>
+
+Mosterdex use the [PokeAPI](https://pokeapi.co/) for constructing REST API.<br>
+PokeAPI provides a RESTful API interface to highly detailed objects built from thousands of lines of
+data related to Pokémon
+
 ## Inspiration
 
 This project draws inspiration from [Pokedex](https://github.com/skydoves/Pokedex) created
