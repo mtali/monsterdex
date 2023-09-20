@@ -48,4 +48,10 @@ dependencies {
 
     // Paging
     implementation(libs.paging.compose)
+
+    // Testing
+    testImplementation(project(":core:test"))
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.core)
 }
