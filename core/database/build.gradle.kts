@@ -28,6 +28,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    sourceSets.getByName("test") {
+        assets.srcDir(files("$projectDir/schemas"))
+    }
+
 }
 
 dependencies {
