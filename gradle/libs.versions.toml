@@ -20,6 +20,7 @@ navigation = '2.7.2'
 coil = "2.4.0"
 palette = "1.0.0"
 paging = "3.2.1"
+junit = "4.13.2"
 
 
 
@@ -59,6 +60,8 @@ palette-ktx = { group = "androidx.palette", name = "palette-ktx", version.ref = 
 paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 
+# Unit tests
+junit = { module = "junit:junit", version.ref = "junit" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
