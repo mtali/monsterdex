@@ -1,5 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
+
 pluginManagement {
     repositories {
         google()
@@ -22,5 +23,6 @@ include(":core:database")
 include(":core:network")
 include(":core:data")
 include(":core:design-system")
+include(":core:test")
 include(":feature:pokemons")
 include(":feature:pokemon-detail")
