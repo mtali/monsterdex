@@ -27,7 +27,7 @@ dependencies {
     implementation(project(":core:model"))
 
     // Coroutines
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.coroutines)
 
     // Network
     implementation(libs.sandwich)
