@@ -10,7 +10,6 @@ object MockUtils {
         url = "https://pokeapi.co/api/v2/pokemon/1/"
     )
 
-
     fun mockPokemonList() = listOf(mockPokemon())
 
     fun mockPokemonInfo() = PokemonInfo(
